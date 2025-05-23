@@ -4,100 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Local Community Event Portal</title>
-  <style>
-    /* Internal CSS */
-    #welcomeBanner {
-      background-color: #007BFF;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    .highlight {
-      background-color: yellow;
-    }
-    table img {
-      border: 2px solid #333;
-      width: 150px;
-      height: 100px;
-    }
-    form {
-      margin-top: 20px;
-    }
-  </style>
-  <script>
-    // Handle localStorage for event type
-    window.onload = function() {
-      const savedType = localStorage.getItem("eventType");
-      if (savedType) {
-        document.getElementById("eventType").value = savedType;
-      }
-    }
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-    function validatePhone() {
-      const phone = document.getElementById("phone");
-      if (!/^\d{10}$/.test(phone.value)) {
-        alert("Please enter a 10-digit phone number");
-        phone.focus();
-      }
-    }
 
-    function showFee() {
-      const type = document.getElementById("eventType").value;
-      localStorage.setItem("eventType", type);
-      const fees = {
-        music: "$10",
-        food: "$5",
-        sports: "$8"
-      };
-      document.getElementById("feeDisplay").textContent = "Fee: " + fees[type];
-    }
+  <script src="main.js"></script>
 
-    function confirmSubmit() {
-      document.getElementById("confirmation").value = "Thank you for registering!";
-      return false;
-    }
-
-    function enlargeImage(img) {
-      img.style.transform = "scale(1.5)";
-      img.style.transition = "transform 0.3s";
-    }
-
-    function countChars() {
-      const count = document.getElementById("feedback").value.length;
-      document.getElementById("charCount").textContent = count + " characters";
-    }
-
-    function videoReady() {
-      document.getElementById("videoStatus").textContent = "Video ready to play";
-    }
-
-    window.onbeforeunload = function() {
-      return "You have unsaved changes. Are you sure you want to leave?";
-    }
-
-    function findLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            document.getElementById("location").textContent =
-              `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
-          },
-          error => {
-            alert("Geolocation error: " + error.message);
-          },
-          { enableHighAccuracy: true, timeout: 5000 }
-        );
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-
-    function clearPreferences() {
-      localStorage.clear();
-      sessionStorage.clear();
-      alert("Preferences cleared.");
-    }
-  </script>
 </head>
 <body>
   <!-- Navigation -->
@@ -114,21 +26,12 @@
       <div id="welcomeBanner">Welcome to the Community Portal! <span style="color:red; font-weight:bold">Special offer!</span></div>
     </section>
 
-    <section id="events">
-      <h2 class="highlight">Upcoming Community Events</h2>
-      <table>
-        <caption>Event Highlights</caption>
-        <tr>
-          <td><img src="event1.jpg" alt="Event 1" title="Music Fest" ondblclick="enlargeImage(this)"></td>
-          <td><img src="event2.jpg" alt="Event 2" title="Food Carnival" ondblclick="enlargeImage(this)"></td>
-          <td><img src="event3.jpg" alt="Event 3" title="Sports Meet" ondblclick="enlargeImage(this)"></td>
-        </tr>
-        <tr>
-          <td><img src="event4.jpg" alt="Event 4" title="Art Expo" ondblclick="enlargeImage(this)"></td>
-          <td><img src="event5.jpg" alt="Event 5" title="Tech Fair" ondblclick="enlargeImage(this)"></td>
-          <td><img src="event6.jpg" alt="Event 6" title="Book Fest" ondblclick="enlargeImage(this)"></td>
-        </tr>
-      </table>
+  
+      <section id="events">
+      <h2 class="highlight" style="color: red;">Upcoming Community Events</h2>
+      <div id="eventGrid" class="event-grid"></div>
+
+
     </section>
 
     <section id="register">
